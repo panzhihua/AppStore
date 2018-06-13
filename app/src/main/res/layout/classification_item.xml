@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/adapter_class_fly"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/adapter_classification_img"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
+    <TextView
+        android:id="@+id/adapter_classification_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="30dp"
+        style="@style/gray37_19_10" />
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/enter"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line_short_gray"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_gravity="bottom"/>
+
+</FrameLayout>

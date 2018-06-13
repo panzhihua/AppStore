@@ -1,0 +1,115 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'key'
+            keyPassword 'rongyan'
+            storeFile file('G:/appstore/appstore.jks')
+            storePassword 'rongyan'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "com.rongyan.appstore"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 3
+        versionName "1.0.2"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        flavorDimensions "versionCode"//版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'x86', 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+        manifestPlaceholders = [
+                GETUI_APP_ID : "illczxjb0q7EzEcjMIPv88",
+                GETUI_APP_KEY : "g9kj4BQCTwA03FNztTW9kA",
+                GETUI_APP_SECRET : "SKwbUcPtdp5C4gt5dDTeh4"
+        ]
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'//解决多个jar包里面有相同的文件，打包时会相互覆盖报错
+        exclude 'META-INF/NOTICE'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = []  //这一行加不加都可以
+            jniLibs.srcDirs = ['libs']//这个必须加，因为我们把.so文件放在了libs文件夹中
+        }
+    }
+    productFlavors {
+        koubei {
+            resValue "color", "orange_10", '#ffff5800'
+            resValue "color", "backage_color", '#333333'
+            resValue "drawable", "homepagebg", '@drawable/homepage'
+            resValue "drawable", "line_color", '@drawable/line_short_orangle'
+            resValue "drawable", "round", '@drawable/orangle_oval'
+            resValue "drawable", "app_icon", '@drawable/launcher_kb'
+        }
+        qiusheng {
+            resValue "color", "orange_10", '#ffB92501'
+            resValue "color", "backage_color", '#ffB92501'
+            resValue "drawable", "homepagebg", '@drawable/homepager'
+            resValue "drawable", "line_color", '@drawable/line_short_red'
+            resValue "drawable", "round", '@drawable/red_oval'
+            resValue "drawable", "app_icon", '@drawable/launcher'
+        }
+        ewh {
+            resValue "color", "orange_10", '#ffff5800'
+            resValue "color", "backage_color", '#333333'
+            resValue "drawable", "homepagebg", '@drawable/homepage'
+            resValue "drawable", "line_color", '@drawable/line_short_orangle'
+            resValue "drawable", "round", '@drawable/orangle_oval'
+            resValue "drawable", "app_icon", '@drawable/launcher_kb'
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:25.4.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:gridlayout-v7:25.4.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.4'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.8.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.4'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation files('libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar')
+    implementation 'com.zhy.fabridge:fabridge-api:1.0.0'
+    annotationProcessor 'com.zhy.fabridge:fabridge-compiler:1.0.0'
+    implementation 'com.jwenfeng.pulltorefresh:library:1.0.3'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.squareup.okio:okio:1.11.0'
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.4.5'
+    implementation files('libs/GetApkInfo.jar')
+    implementation files('libs/dd-plist-1.16.jar')
+    //个推
+    implementation files('libs/GetuiSDK2.12.3.0.jar')
+}

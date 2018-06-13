@@ -1,0 +1,159 @@
+<resources>
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/homepagebg</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/backage_color</item>
+        <item name="colorPrimaryDark">@color/backage_color</item>
+       <!-- <item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@drawable/homepage</item>-->
+    </style>
+
+    <style name="AlertDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@drawable/dialog_bg</item> <!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 背景内容模糊 -->
+    </style>
+
+    <style name="red_14_10">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/orange_10</item>
+    </style>
+    <style name="red_28_10">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/orange_10</item>
+    </style>
+    <style name="red_20_10">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/orange_10</item>
+    </style>
+
+    <style name="gray33_14_10">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FF333333</item>
+    </style>
+    <style name="gray33_20_10">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FF333333</item>
+    </style>
+
+    <style name="gray37_38_10">
+        <item name="android:textSize">38sp</item>
+        <item name="android:textColor">#FF373737</item>
+    </style>
+
+    <style name="gray37_24_10">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FF373737</item>
+    </style>
+
+    <style name="gray37_19_10">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">#FF373737</item>
+    </style>
+    <style name="gray37_18_10">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#FF373737</item>
+    </style>
+
+    <style name="gray89_24_10">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FF898989</item>
+    </style>
+
+    <style name="grayEC_16_10">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFECECEC</item>
+    </style>
+
+    <style name="white_11_10">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <style name="white_14_10">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <style name="white_16_10">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <style name="white_20_10">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <style name="white_28_10">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <style name="white_32_10">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+    <style name="gray9B_24_10">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FF9B9B9B</item>
+    </style>
+    <style name="gray9B_16_10">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FF9B9B9B</item>
+    </style>
+    <style name="gray9B_12_10">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FF9B9B9B</item>
+    </style>
+    <style name="gray7B_24_10">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FF7B7B7B</item>
+    </style>
+    <style name="gray7B_12_10">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FF7B7B7B</item>
+    </style>
+    <style name="gray4A_24_10">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FF4A4A4A</item>
+    </style>
+    <style name="gray4A_12_10">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FF4A4A4A</item>
+    </style>
+    <style name="gray99_11_10">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#FF999999</item>
+    </style>
+
+    <style name="grayB1_12_10">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FFB1B1B1</item>
+    </style>
+
+    <style name="grayB1_16_10">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFB1B1B1</item>
+    </style>
+
+    <style name="black_28_10">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#FF000000</item>
+    </style>
+
+    <style name="black_18_10">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#FF000000</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

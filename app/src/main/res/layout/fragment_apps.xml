@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/fragment_apps_pulltorefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- 内容控件 有且只能有一个 -->
+        <ListView
+            android:id="@+id/fragment_apps_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null">
+        </ListView>
+    
+    </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
+    <LinearLayout
+        android:id="@+id/fragment_apps_liy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white_10"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="322dp"
+            android:layout_height="204dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/application_land"
+            android:layout_marginTop="170dp"/>
+        <TextView
+            android:id="@+id/fragment_apps_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/black_28_10"
+            android:text="@string/no_application_under_classification"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"/>
+    </LinearLayout>
+</FrameLayout>
+
