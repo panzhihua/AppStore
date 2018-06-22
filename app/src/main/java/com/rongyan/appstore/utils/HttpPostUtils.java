@@ -152,7 +152,7 @@ public class HttpPostUtils extends Thread {
 			if (code== 200) {
 				inputStream = urlConnection.getInputStream();
 				bufferedReader = new BufferedReader(new InputStreamReader(
-						inputStream));
+						inputStream,"utf-8"));
 				StringBuffer stringBuffer = new StringBuffer();
 				String valueString;
 				while ((valueString = bufferedReader.readLine()) != null) {

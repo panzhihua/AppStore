@@ -467,7 +467,7 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
         } catch (Exception e) {
             e.printStackTrace();
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions));
+                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions)+toString());
             }
         }
     }
@@ -481,7 +481,7 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
             fragment_Recommend_Liy.setVisibility(View.INVISIBLE);
         }
         if(isAdded()) {
-            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again));
+            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again)+value);
         }
     }
 
@@ -498,7 +498,7 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
         } else {
             finish(state);
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again));
+                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again)+value);
             }
         }
     }

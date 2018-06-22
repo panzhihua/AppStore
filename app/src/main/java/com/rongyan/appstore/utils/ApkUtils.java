@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -236,8 +237,9 @@ public class ApkUtils {
             parameters = (NSString) rootDict.get("CFBundleVersion");
             map.put("versionCode", parameters.toString());
 
-            /////////////////////////////////////////////////
-            infoIs.close();
+            if(infoIs!=null) {
+                infoIs.close();
+            }
             is.close();
             zipIns.close();
 
@@ -248,12 +250,12 @@ public class ApkUtils {
     }
 
     public static String getFileMD5(File file) {
+        FileInputStream in = null;
         try {
             if (!file.isFile()) {
                 return null;
             }
             MessageDigest digest;
-            FileInputStream in;
             byte buffer[] = new byte[1024];
             int len;
             digest = MessageDigest.getInstance("MD5");
@@ -261,11 +263,19 @@ public class ApkUtils {
             while ((len = in.read(buffer, 0, 1024)) != -1) {
                 digest.update(buffer, 0, len);
             }
-            in.close();
+
             BigInteger bigInt = new BigInteger(1, digest.digest());
             return bigInt.toString(16);
         }catch(Exception e){
             e.printStackTrace();
+        }finally {
+            if(in!=null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }

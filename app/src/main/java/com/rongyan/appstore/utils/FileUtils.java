@@ -58,7 +58,7 @@ public class FileUtils {
             int hasRead=0;
             StringBuffer sb=new StringBuffer();
             while ((hasRead=fis.read(buff))>0){
-                sb.append(new String(buff,0,hasRead));
+                sb.append(new String(buff,0,hasRead,"utf-8"));
             }
             fis.close();
             return sb.toString();

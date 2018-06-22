@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 /**
  * 横屏应用更新Fragment
@@ -124,7 +124,9 @@ public class UpdateFragment extends Fragment implements HttpPostUtils.CallBack{
             mUpdateTimer = new Timer();
             mUpdateTimer.schedule(new UpdateTask(data),0);
         }else{
-            ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            }
         }
     }
 
@@ -217,7 +219,7 @@ public class UpdateFragment extends Fragment implements HttpPostUtils.CallBack{
         }catch(Exception e){
             e.printStackTrace();
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions));
+                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions)+e.toString());
             }
         }
     }
@@ -226,7 +228,7 @@ public class UpdateFragment extends Fragment implements HttpPostUtils.CallBack{
     public void setPostFailedResponse(String value) {
         finish(state);
         if(isAdded()) {
-            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again));
+            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again)+value);
         }
     }
 
@@ -237,7 +239,7 @@ public class UpdateFragment extends Fragment implements HttpPostUtils.CallBack{
         }else{
             finish(state);
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again));
+                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again)+value);
             }
         }
     }

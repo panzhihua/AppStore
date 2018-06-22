@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 /**
  * 竖屏首页Fragment
@@ -480,7 +480,9 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
                 mNewestTimer.schedule(new NewestTask(), 0);
             }
         }else{
-            ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            }
         }
     }
 
@@ -590,7 +592,9 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
             }
         }catch(Exception e){
             e.printStackTrace();
-            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions)+e.toString());
+            }
         }
     }
 
@@ -605,7 +609,9 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
             startTimer(type_temporary);
         }else{
             finish(state);
-            ToastUtils.showToast(getContext(), getString(R.string.network_fail_again));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again)+value);
+            }
         }
     }
 

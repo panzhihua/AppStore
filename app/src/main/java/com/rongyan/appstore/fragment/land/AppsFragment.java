@@ -1,5 +1,6 @@
 package com.rongyan.appstore.fragment.land;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -34,7 +35,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 /**
  * 横屏分类应用
@@ -76,6 +77,11 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
     private List<LeftOrRightAppsItem> mLeftOrRightAppsItem;
 
     private int state=state_init;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
 
     private boolean isFirst=true;//是否首次进入该页面
 
@@ -137,7 +143,9 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
                         fragment_Apps_Listview.setSelection(mLeftOrRightAppsItem.size()-1);
                     } else {
                         state = state_load;
-                        ToastUtils.showToast(getContext(), getString(R.string.no_more));
+                        if(isAdded()) {
+                            ToastUtils.showToast(getContext(), getString(R.string.no_more));
+                        }
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -184,7 +192,9 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
             mAppsTimer = new Timer();
             mAppsTimer.schedule(new AppsTask(),0);
         }else{
-            ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            }
         }
     }
 
@@ -345,7 +355,9 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
             }
         } catch (Exception e) {
             setView(false,1);
-            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions)+e.toString());
+            }
             if (pageNum > 1) {
                 pageNum--;
             }
@@ -360,7 +372,9 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
         if(pageNum>1){
             pageNum--;
         }
-        ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again));
+        if(isAdded()) {
+            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again)+value);
+        }
     }
 
     @Override
@@ -373,7 +387,9 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
             if(pageNum>1){
                 pageNum--;
             }
-            ToastUtils.showToast(getContext(), getString(R.string.network_fail_again));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again)+value);
+            }
         }
     }
 

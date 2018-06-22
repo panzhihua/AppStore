@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.rongyan.appstore.BuildConfig;
 import com.rongyan.appstore.activity.NetworksActivity;
 import com.rongyan.appstore.database.DataBaseOpenHelper;
 import com.rongyan.appstore.item.AppInfo;
@@ -120,13 +121,13 @@ public class AppStoreApplication extends Application {
             LogUtils.w(TAG,"Build.DISPLAY="+Build.DISPLAY);
             ApplicationUtils.setmNetWorkEnable(ApplicationUtils.isNetworkAvailable(getApplicationContext()));
             ApplicationUtils.setAppList(getApplicationContext());
-            String[] strArray = Build.DISPLAY.split("_");
-            ApplicationUtils.setmBROKER(strArray[1]);
-            ApplicationUtils.setmMODEL(strArray[2]);
-            ApplicationUtils.setmVERSION(strArray[3]);
-//            ApplicationUtils.setmBROKER("EWH");
-//            ApplicationUtils.setmMODEL("P10C");
-//            ApplicationUtils.setmVERSION("2.0.7");
+//            String[] strArray = Build.DISPLAY.split("_");
+//            ApplicationUtils.setmBROKER(strArray[1]);
+//            ApplicationUtils.setmMODEL(strArray[2]);
+//            ApplicationUtils.setmVERSION(strArray[3]);
+            ApplicationUtils.setmBROKER("EWH");
+            ApplicationUtils.setmMODEL("P10C");
+            ApplicationUtils.setmVERSION("2.0.7");
             IntentFilter filter = new IntentFilter();
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);// 监听网络变化
             registerReceiver(mBroadcastReceiver, filter);
@@ -181,8 +182,10 @@ public class AppStoreApplication extends Application {
 
     public void initBugly(){
         //bugly
-        CrashReport.initCrashReport(getApplicationContext());
-        CrashReport.setUserId(Build.SERIAL);
+        if(!BuildConfig.DEBUG) {
+            CrashReport.initCrashReport(getApplicationContext());
+            CrashReport.setUserId(Build.SERIAL);
+        }
     }
 
     public void initRegister(){

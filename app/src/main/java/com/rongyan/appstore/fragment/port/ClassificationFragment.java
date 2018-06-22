@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 /**
  * 竖屏分类Fragment
@@ -112,7 +112,9 @@ public class ClassificationFragment extends Fragment implements HttpGetUtils.Cal
             mCategoriesTimer = new Timer();
             mCategoriesTimer.schedule(new ClassificationFragment.CategoriesTask(),time);
         }else{
-            ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            if(isAdded()) {
+                ToastUtils.showToast(getContext(), getString(R.string.network_failed_check_configuration));
+            }
         }
     }
 
@@ -141,7 +143,7 @@ public class ClassificationFragment extends Fragment implements HttpGetUtils.Cal
         }catch(Exception e){
             e.printStackTrace();
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions));
+                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions)+e.toString());
             }
         }
     }
@@ -152,7 +154,7 @@ public class ClassificationFragment extends Fragment implements HttpGetUtils.Cal
         mCustomDialog.hideDailog();
         mClassificationAdapter.setList(mCategoies);
         if(isAdded()) {
-            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again));
+            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again)+value);
         }
     }
 
@@ -165,7 +167,7 @@ public class ClassificationFragment extends Fragment implements HttpGetUtils.Cal
             mCustomDialog.hideDailog();
             mClassificationAdapter.setList(mCategoies);
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again));
+                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again)+value);
             }
         }
     }

@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 
 /**
@@ -46,13 +46,15 @@ public class CustomDialog {
                             dialogNum++;
                         }
                     } else {
-                        dialog = new Dialog(mContext, R.style.AlertDialog);
-                        View vv = LayoutInflater.from(mContext).inflate(R.layout.dialog_normal_layout, null);
+                        if(mContext!=null) {
+                            dialog = new Dialog(mContext, R.style.AlertDialog);
+                            View vv = LayoutInflater.from(mContext).inflate(R.layout.dialog_normal_layout, null);
 
-                        dialog.setCanceledOnTouchOutside(true);
-                        dialog.setContentView(vv);
-                        dialog.show();
-                        dialogNum++;
+                            dialog.setCanceledOnTouchOutside(true);
+                            dialog.setContentView(vv);
+                            dialog.show();
+                            dialogNum++;
+                        }
                     }
                 }
             });

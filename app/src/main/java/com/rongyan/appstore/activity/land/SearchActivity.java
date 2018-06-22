@@ -1,10 +1,10 @@
 package com.rongyan.appstore.activity.land;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -39,7 +39,7 @@ import static com.rongyan.appstore.utils.ApplicationUtils.getActivity;
  * 横版搜索activity
  */
 
-public class SearchActivity extends Activity implements HttpGetUtils.CallBack{
+public class SearchActivity extends AppCompatActivity implements HttpGetUtils.CallBack{
 
     private final static String TAG="SearchActivity";
 
@@ -68,6 +68,7 @@ public class SearchActivity extends Activity implements HttpGetUtils.CallBack{
     private String mSearch;
 
     private boolean isFirst=true;//是否首次进入该页面
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,7 +186,7 @@ public class SearchActivity extends Activity implements HttpGetUtils.CallBack{
         if (ApplicationUtils.ismNetWorkEnable()) {
             num++;
             if(!isFinishing()) {
-                mCustomDialog.showDailog();
+               mCustomDialog.showDailog();
             }
             if (mSearchTimer != null) {
                 mSearchTimer.cancel();
@@ -288,4 +289,5 @@ public class SearchActivity extends Activity implements HttpGetUtils.CallBack{
             activity_Search_Listview.setVisibility(View.GONE);
         }
     }
+
 }

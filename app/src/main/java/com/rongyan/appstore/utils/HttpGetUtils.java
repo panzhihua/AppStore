@@ -130,7 +130,7 @@ public class HttpGetUtils extends Thread {
 			if (code == 200) {
 				inputStream = connection.getInputStream();
 				bufferedReader = new BufferedReader(new InputStreamReader(
-						inputStream));
+						inputStream,"utf-8"));
 				StringBuffer stringBuffer = new StringBuffer();
 				String valueString;
 				while ((valueString = bufferedReader.readLine()) != null) {

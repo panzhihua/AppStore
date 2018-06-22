@@ -179,7 +179,7 @@ public class ClassFragment extends Fragment implements HttpGetUtils.CallBack{
             }
         }catch(Exception e){
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions));
+                ToastUtils.showToast(getContext(), getString(R.string.network_exceptions)+e.toString());
             }
             e.printStackTrace();
         }
@@ -190,7 +190,7 @@ public class ClassFragment extends Fragment implements HttpGetUtils.CallBack{
         LogUtils.w(TAG,value);
         num=0;
         if(isAdded()) {
-            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again));
+            ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again)+value);
         }
     }
 
@@ -202,7 +202,7 @@ public class ClassFragment extends Fragment implements HttpGetUtils.CallBack{
         }else{
             num=0;
             if(isAdded()) {
-                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again));
+                ToastUtils.showToast(getContext(), getString(R.string.network_fail_again)+value);
             }
         }
     }
