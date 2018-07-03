@@ -78,6 +78,8 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
 
     private int state=state_init;
 
+    private boolean isLoading=false;//是否正在加载中
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -128,6 +130,11 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
         fragment_Apps_Pulltorefreshlayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
+                if(isLoading){
+                    fragment_Apps_Pulltorefreshlayout.finishRefresh();
+                    return;
+                }
+                isLoading=true;
                 state=state_refresh;
                 refreshView();
                 startTimer();
@@ -137,6 +144,11 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
             public void loadMore() {
                 if(mAppClassItem!=null) {
                     if (!mAppClassItem.getData().getPaging().isIs_last_page()) {//判断是不是最后一页
+                        if(isLoading){
+                            fragment_Apps_Pulltorefreshlayout.finishLoadMore();
+                            return;
+                        }
+                        isLoading=true;
                         state = state_load;
                         pageNum++;
                         startTimer();
@@ -395,6 +407,7 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
 
     private void finish(int state){
         num=0;
+        isLoading=false;
         if(state==state_load){
             // 结束加载更多
             fragment_Apps_Pulltorefreshlayout.finishLoadMore();

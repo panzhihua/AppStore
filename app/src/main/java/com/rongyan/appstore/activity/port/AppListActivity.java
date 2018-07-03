@@ -100,6 +100,8 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
     private VelocityTracker mVelocityTracker;
 
     private int last_refresh;//上一次刷新时间
+
+    private boolean isLoading=false;//是否正在加载中
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +158,10 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
         activity_Applist_Pulltorefreshlayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
+                if(isLoading){
+                    activity_Applist_Pulltorefreshlayout.finishRefresh();
+                    return;
+                }
                 state=state_refresh;
                 refreshView();
                 startTimer();
@@ -165,6 +171,10 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
             public void loadMore() {
                 if(mAppClassItem!=null) {
                     if (!mAppClassItem.getData().getPaging().isIs_last_page()) {//判断是不是最后一页
+                        if(isLoading){
+                            activity_Applist_Pulltorefreshlayout.finishLoadMore();
+                            return;
+                        }
                         state = state_load;
                         pageNum++;
                         startTimer();
@@ -348,6 +358,7 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
 
     private void finish(int state){
         num=0;
+        isLoading=false;
         if(state==state_load){
             // 结束加载更多
             activity_Applist_Pulltorefreshlayout.finishLoadMore();

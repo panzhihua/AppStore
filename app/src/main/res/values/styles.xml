@@ -23,6 +23,7 @@
         <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
         <item name="android:windowBackground">@drawable/dialog_bg</item> <!-- 自己想要的背景 -->
         <item name="android:backgroundDimEnabled">true</item> <!-- 背景内容模糊 -->
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="red_14_10">

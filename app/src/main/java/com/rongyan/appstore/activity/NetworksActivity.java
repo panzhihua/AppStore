@@ -15,6 +15,9 @@ import com.rongyan.appstore.utils.LogUtils;
 
 import com.rongyan.appstore.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * 断网提示页
  */
@@ -24,6 +27,8 @@ public class NetworksActivity extends AppCompatActivity {
     private final static String TAG="NetworksActivity";
 
     private ImageView activity_Network_Refresh_img;
+
+    private Timer timer;
 
     BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -41,6 +46,22 @@ public class NetworksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network);
         init();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // 初始化定时器
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if(ApplicationUtils.isNetworkAvailable(NetworksActivity.this)){
+                    finish();
+                }
+            }
+        }, 5000, 5000);
     }
 
     private void init(){
@@ -92,6 +113,11 @@ public class NetworksActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         unregisterReceiver(mBroadcastReceiver);
+        if(timer != null){
+            timer.cancel();
+            // 一定设置为null，否则定时器不会被回收
+            timer = null;
+        }
         super.onDestroy();
     }
 }
