@@ -118,12 +118,12 @@ public class HttpDownAPKUtils extends Thread{
                         }
                     }
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 if(e instanceof SocketTimeoutException){
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtils.showToast(mContext, mContext.getString(R.string.download_failed_again));
+                            ToastUtils.showToast(mContext, mContext.getString(R.string.download_failed_again)+e.toString());
                         }
                     });
                 }

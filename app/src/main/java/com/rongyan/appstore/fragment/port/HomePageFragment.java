@@ -126,7 +126,6 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         init(savedInstanceState);
-        Log.w("pipa","CC");
     }
 
     @Override
@@ -184,7 +183,8 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
             public void onClick(View v) {
                 LogUtils.w(TAG,"HOTEST");
                 if(toggleBtn(HOTEST)) {
-                    judgeNew_Hot(type_hotest);
+                    //judgeNew_Hot(type_hotest);
+                    fragment_Homepage_Viewpagers.setCurrentItem(0,false);
                 }
             }
         });
@@ -193,14 +193,14 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
             public void onClick(View v) {
                 LogUtils.w(TAG,"NEWEST");
                 if(toggleBtn(NEWEST)) {
-                    judgeNew_Hot(type_newest);
+                    //judgeNew_Hot(type_newest);
+                    fragment_Homepage_Viewpagers.setCurrentItem(1,false);
                 }
             }
         });
         fragment_Homepage_Btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                LogUtils.w(TAG,"Homepage_Btn");
                 float x1 = 0;
                 float x2 = 0;
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -216,11 +216,11 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
                     x2 = event.getX();
                     if(x1 - x2 > 0&&isMove) {
                         if(toggleBtn(HOTEST)) {
-                            judgeNew_Hot(type_hotest);
+                            fragment_Homepage_Viewpagers.setCurrentItem(0,false);
                         }
                     } else if(x2 - x1 >0&&isMove) {
                         if(toggleBtn(NEWEST)) {
-                            judgeNew_Hot(type_newest);
+                            fragment_Homepage_Viewpagers.setCurrentItem(1,false);
                         }
                     }
                 }
@@ -426,6 +426,7 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
                     break;
             }
             currIndex = arg0;
+            LogUtils.w(TAG,"currIndex:"+currIndex);
             if(fragment_Homepage_Viewpagers!=null) {
                 fragment_Homepage_Viewpagers.setCurrentItem(currIndex);
             }
@@ -433,9 +434,9 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
             animation.setFillAfter(true);// True:图片停在动画结束位置
             animation.setDuration(300);
             if(currIndex==HOTEST){
-                judgeNew_Hot(type_hotest);
-            }else{
                 judgeNew_Hot(type_newest);
+            }else{
+                judgeNew_Hot(type_hotest);
             }
         }
         @Override
@@ -630,6 +631,7 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
      * 判断是否需要重新查询
      */
     public void judgeNew_Hot(int type) {
+        LogUtils.w(TAG,"type:"+type);
         int id;
         if (type == type_hotest) {
             id = DatabaseColume.HOTID;

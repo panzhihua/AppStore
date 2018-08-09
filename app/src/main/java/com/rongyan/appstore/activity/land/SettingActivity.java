@@ -144,13 +144,21 @@ public class SettingActivity extends AppCompatActivity {
     private void setCurrentNavLayout(int index, int currentIndex) {
         if(index==UPDATE){
             setting_Update_Fly.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white_10));
-            setting_Update_View.setBackground(getResources().getDrawable(R.drawable.line_color));
+            if(ApplicationUtils.getmBROKER().equals("KB")) {
+                setting_Update_View.setBackground(getResources().getDrawable(R.drawable.line_short_orangle));
+            }else{
+                setting_Update_View.setBackground(getResources().getDrawable(R.drawable.line_short_red));
+            }
             setting_Update_Txt.setTextAppearance(getApplicationContext(), R.style.red_28_10);
             setting_Update_Btn.setVisibility(View.VISIBLE);
             setting_Refresh_Img.setVisibility(View.VISIBLE);
         }else if(index==ORDER){
             setting_Orders_Fly.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white_10));
-            setting_Order_View.setBackground(getResources().getDrawable(R.drawable.line_color));
+            if(ApplicationUtils.getmBROKER().equals("KB")) {
+                setting_Order_View.setBackground(getResources().getDrawable(R.drawable.line_short_orangle));
+            }else{
+                setting_Order_View.setBackground(getResources().getDrawable(R.drawable.line_short_red));
+            }
             setting_Order_Txt.setTextAppearance(getApplicationContext(), R.style.red_28_10);
         }
 

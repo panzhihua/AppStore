@@ -325,7 +325,7 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
         } catch (Exception e) {
             e.printStackTrace();
             setView(false,1);
-            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions));
+            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions)+e.toString());
             if (pageNum > 1) {
                 pageNum--;
             }
@@ -339,7 +339,7 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
         if(pageNum>1){
             pageNum--;
         }
-        ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions_again));
+        ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions_again)+value);
     }
 
     @Override
@@ -352,7 +352,7 @@ public class AppListActivity extends AppCompatActivity implements HttpGetUtils.C
             if(pageNum>1){
                 pageNum--;
             }
-            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_fail_again));
+            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_fail_again)+value);
         }
     }
 

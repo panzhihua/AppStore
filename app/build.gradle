@@ -57,25 +57,13 @@ android {
             resValue "color", "orange_10", '#ffff5800'
             resValue "color", "backage_color", '#333333'
             resValue "drawable", "homepagebg", '@drawable/homepage'
-            resValue "drawable", "line_color", '@drawable/line_short_orangle'
-            resValue "drawable", "round", '@drawable/orangle_oval'
             resValue "drawable", "app_icon", '@drawable/launcher_kb'
         }
-        qiusheng {
+        ewh {
             resValue "color", "orange_10", '#ffB92501'
             resValue "color", "backage_color", '#ffB92501'
             resValue "drawable", "homepagebg", '@drawable/homepager'
-            resValue "drawable", "line_color", '@drawable/line_short_red'
-            resValue "drawable", "round", '@drawable/red_oval'
             resValue "drawable", "app_icon", '@drawable/launcher'
-        }
-        ewh {
-            resValue "color", "orange_10", '#ffff5800'
-            resValue "color", "backage_color", '#333333'
-            resValue "drawable", "homepagebg", '@drawable/homepage'
-            resValue "drawable", "line_color", '@drawable/line_short_orangle'
-            resValue "drawable", "round", '@drawable/orangle_oval'
-            resValue "drawable", "app_icon", '@drawable/launcher_kb'
         }
     }
 }

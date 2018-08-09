@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 /**
  * 竖屏设置Fragment
@@ -43,7 +42,7 @@ public class SettingFragment extends Fragment implements HttpPostUtils.CallBack{
 
     private TextView fragment_Setting_Version_Txt;
 
-    private Button fragment_Setting_Num_Btn;
+    private TextView fragment_Setting_Num_Btn;
 
     private DataBaseOpenHelper mDataBaseOpenHelper;
 
@@ -82,7 +81,7 @@ public class SettingFragment extends Fragment implements HttpPostUtils.CallBack{
         fragment_Setting_Update_Fly=(FrameLayout)getView().findViewById(R.id.fragment_setting_update_fly);
         fragment_Setting_Order_Fly=(FrameLayout)getView().findViewById(R.id.fragment_setting_order_fly);
         fragment_Setting_Version_Txt=(TextView)getView().findViewById(R.id.fragment_setting_version_txt);
-        fragment_Setting_Num_Btn=(Button)getView().findViewById(R.id.fragment_setting_num_btn);
+        fragment_Setting_Num_Btn=(TextView)getView().findViewById(R.id.fragment_setting_num_btn);
     }
 
     public void initEvent(){
@@ -216,6 +215,11 @@ public class SettingFragment extends Fragment implements HttpPostUtils.CallBack{
         if(number<1){
             fragment_Setting_Num_Btn.setVisibility(View.GONE);
         }else{
+            if(ApplicationUtils.getmBROKER().equals("KB")) {
+                fragment_Setting_Num_Btn.setBackground(getResources().getDrawable(R.drawable.orangle_oval));
+            }else{
+                fragment_Setting_Num_Btn.setBackground(getResources().getDrawable(R.drawable.red_oval));
+            }
             fragment_Setting_Num_Btn.setVisibility(View.VISIBLE);
             fragment_Setting_Num_Btn.setText(String.valueOf(number));
         }

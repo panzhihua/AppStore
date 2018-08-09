@@ -124,7 +124,7 @@ public class HttpGetUtils extends Thread {
 				});
 				return;
 			}
-			connection.setRequestProperty("device-build-display", Build.DISPLAY);
+			connection.setRequestProperty("device-build-display",Build.DISPLAY);
 			final int code = connection.getResponseCode();
 			LogUtils.w(TAG, mURL+":"+code);
 			if (code == 200) {

@@ -1,9 +1,11 @@
 package com.rongyan.appstore.activity.port;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +29,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rongyan.appstore.activity.MainActivity;
+import com.rongyan.appstore.activity.PermissionsActivity;
+import com.rongyan.appstore.activity.PermissionsResultListener;
 import com.rongyan.appstore.database.DataBaseOpenHelper;
 import com.rongyan.appstore.fragment.land.RecommendFragment;
 import com.rongyan.appstore.fragment.port.ClassificationFragment;
@@ -53,7 +58,7 @@ import com.rongyan.appstore.R;;
  * 竖屏首页
  */
 
-public class HomePageActivity extends FragmentActivity implements HttpGetUtils.CallBack,AppView.app,ActivityCompat.OnRequestPermissionsResultCallback{
+public class HomePageActivity extends PermissionsActivity implements HttpGetUtils.CallBack,AppView.app,ActivityCompat.OnRequestPermissionsResultCallback{
 
     private final static String TAG="HomePageActivity";
 
@@ -103,7 +108,17 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
             String action = intent.getAction();
             if (action.equals("action.app.permission")) {
                 if(intent.getExtras().getInt("type")==PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE){
-                    PermissionUtils.requestPermission(HomePageActivity.this, PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE, mPermissionGrant);
+                    checkPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 300, new PermissionsResultListener() {
+                        @Override
+                        public void onSuccessful(int[] grantResults) {
+
+                        }
+
+                        @Override
+                        public void onFailure() {
+
+                        }
+                    });
                 }
             }
         }
@@ -251,6 +266,7 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
     }
 
     public void initData() {
+        PermissionUtils.requestMultiPermissions(this,  mPermissionGrant);
         executeNavBtnEvent(HOMEPAGE);
         startTimer();
     }
@@ -259,8 +275,7 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
      * 底部按钮切换tab页面事件
      */
     public void executeNavBtnEvent(int index) {
-        PermissionUtils.requestPermission(this, PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE, mPermissionGrant);
-        PermissionUtils.requestPermission(this, PermissionUtils.CODE_ACCESS_FINE_LOCATION, mPermissionGrant);
+
         if(currentIndex==index){
             return ;
         }
@@ -475,7 +490,7 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
                 }
             }
         }catch(Exception e){
-            ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_exceptions));
+            ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_exceptions)+e.toString());
             e.printStackTrace();
         }
     }
@@ -483,7 +498,7 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
     @Override
     public void setFailedResponse(String value) {
         finishEnd();
-        ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_exceptions_again));
+        ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_exceptions_again)+value);
     }
 
     @Override
@@ -492,7 +507,7 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
             startTimer();
         }else{
             finishEnd();
-            ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_fail_again));
+            ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_fail_again)+value);
         }
     }
 
@@ -518,6 +533,7 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
                     Intent intent = new Intent(com.rongyan.appstore.activity.port.HomePageActivity.this, com.rongyan.appstore.activity.port.SearchActivity.class);
                     intent.putExtra("search_text", mSearch);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.fade, R.anim.hold);
                     activity_Homepage_Search_Edit.setText("");
                     activity_Homepage_Search_Edit.setFocusable(false);//隐藏焦点
                 }
@@ -542,6 +558,6 @@ public class HomePageActivity extends FragmentActivity implements HttpGetUtils.C
     @Override
     public void onRequestPermissionsResult(final int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        PermissionUtils.requestPermissionsResult(this, requestCode, permissions, grantResults, mPermissionGrant);
+        //PermissionUtils.requestPermissionsResult(this, requestCode, permissions, grantResults, mPermissionGrant);
     }
 }

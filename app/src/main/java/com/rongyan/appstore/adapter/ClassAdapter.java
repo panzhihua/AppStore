@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rongyan.appstore.item.CategoriesItem;
+import com.rongyan.appstore.utils.ApplicationUtils;
 import com.rongyan.appstore.utils.LogUtils;
 
 import java.util.HashMap;
@@ -160,7 +161,11 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
             holder.itemView.setTag(position);
             if(position==lastPosition){
                 holder.adapter_Class_Fly.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white_10));
-                holder.adapter_Class_View.setBackground(mContext.getDrawable(R.drawable.line_color));
+                if(ApplicationUtils.getmBROKER().equals("KB")) {
+                    holder.adapter_Class_View.setBackgroundResource(R.drawable.line_short_orangle);
+                }else{
+                    holder.adapter_Class_View.setBackgroundResource(R.drawable.line_short_red);
+                }
                 holder.adapter_Class_Txt.setTextAppearance(mContext, R.style.red_28_10);
             }else{
                 if(holder.adapter_Class_View.getBackground()!=mContext.getDrawable(R.drawable.line_short_gray)) {

@@ -1,16 +1,14 @@
 package com.rongyan.appstore.activity.land;
 
+import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,6 +24,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rongyan.appstore.R;
+import com.rongyan.appstore.activity.PermissionsActivity;
+import com.rongyan.appstore.activity.PermissionsResultListener;
 import com.rongyan.appstore.database.DataBaseOpenHelper;
 import com.rongyan.appstore.dialog.CustomDialog;
 import com.rongyan.appstore.fragment.land.AppsFragment;
@@ -56,7 +56,7 @@ import java.util.TimerTask;
 /**
  * 横屏首页
  */
-public class HomePageActivity extends FragmentActivity implements ClassFragment.selectFragment,HttpGetUtils.CallBack,HttpPostUtils.CallBack{
+public class HomePageActivity extends PermissionsActivity implements ClassFragment.selectFragment,HttpGetUtils.CallBack,HttpPostUtils.CallBack{
 
     private final static String TAG="HomePageActivity";
 
@@ -274,6 +274,18 @@ public class HomePageActivity extends FragmentActivity implements ClassFragment.
     }
 
     public void initData() {
+        checkPermissions(new String[]{Manifest.permission.CALL_PHONE,
+                Manifest.permission.CAMERA,}, 300, new PermissionsResultListener() {
+            @Override
+            public void onSuccessful(int[] grantResults) {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
         mDataBaseOpenHelper = DataBaseOpenHelper.getInstance(HomePageActivity.this);
         if (classFragment==null){
             classFragment = new ClassFragment();
@@ -690,7 +702,7 @@ public class HomePageActivity extends FragmentActivity implements ClassFragment.
     public void setFailedResponse(String value) {
         num=0;
         mCustomDialog.hideDailog();
-        ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_exceptions_again));
+        ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_exceptions_again)+value);
     }
 
     @Override
@@ -700,7 +712,7 @@ public class HomePageActivity extends FragmentActivity implements ClassFragment.
         }else{
             num=0;
             mCustomDialog.hideDailog();
-            ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_fail_again));
+            ToastUtils.showToast(HomePageActivity.this, getString(R.string.network_fail_again)+value);
         }
     }
 

@@ -250,7 +250,7 @@ public class SearchActivity extends AppCompatActivity implements HttpGetUtils.Ca
             }
         } catch (Exception e) {
             setView(false);
-            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_exceptions));
+            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_exceptions)+e.toString());
             e.printStackTrace();
         }
     }
@@ -268,7 +268,7 @@ public class SearchActivity extends AppCompatActivity implements HttpGetUtils.Ca
         }else{
             finishEnd();
             setView(false);
-            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_fail_again));
+            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_fail_again)+value);
         }
     }
 

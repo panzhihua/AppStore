@@ -150,7 +150,9 @@ public class PermissionUtils {
      */
     public static void requestMultiPermissions(final Activity activity, PermissionGrant grant) {
 
-        final List<String> permissionsList = getNoGrantedPermission(activity, false);
+        List<String> permissionsList =new ArrayList<>();
+        permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         final List<String> shouldRationalePermissionsList = getNoGrantedPermission(activity, true);
 
         //TODO checkSelfPermission

@@ -18,7 +18,7 @@
                 android:text="@string/apply_update"
                 style="@style/gray37_19_10"
                 android:layout_gravity="center_vertical"/>
-            <Button
+            <TextView
                 android:id="@+id/fragment_setting_num_btn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -26,8 +26,7 @@
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="20dp"
                 android:gravity="center"
-                android:background="@drawable/red_oval"
-                android:visibility="gone"/>
+                android:visibility="gone" />
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="18dp"

@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.rongyan.appstore.R;;
+import com.rongyan.appstore.R;
 
 /**
  * 横屏首页推荐
@@ -435,17 +435,10 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
                                     }
                                 }
                             }
-                            fragment_Recommend_Liy.setVisibility(View.VISIBLE);
                             setListViewHeightBasedOnChildren(fragment_Recommend_Listview,item.getData().getApps().length);//解决ScrollView嵌套ListView只显示一行的bug
                             mRecommendAdapter.setList(mLeftOrRightAppsItem);
-                        } else {
-                            fragment_Recommend_Liy.setVisibility(View.INVISIBLE);
                         }
-                    } else {
-                        fragment_Recommend_Liy.setVisibility(View.INVISIBLE);
                     }
-                } else {
-                    fragment_Recommend_Liy.setVisibility(View.INVISIBLE);
                 }
             } else {
                 BannersItem item = (BannersItem) JsonUtils
@@ -475,11 +468,6 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
     @Override
     public void setFailedResponse(String value) {
         finish(state);
-        if (type_temporary == type_hotest) {
-            fragment_Recommend_Liy.setVisibility(View.INVISIBLE);
-        } else if (type_temporary == type_newest) {
-            fragment_Recommend_Liy.setVisibility(View.INVISIBLE);
-        }
         if(isAdded()) {
             ToastUtils.showToast(getContext(), getString(R.string.network_exceptions_again)+value);
         }

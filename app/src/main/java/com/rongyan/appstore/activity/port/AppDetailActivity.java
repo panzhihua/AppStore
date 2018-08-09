@@ -383,14 +383,14 @@ public class AppDetailActivity extends AppCompatActivity implements HttpGetUtils
             }
         }catch(Exception e){
             e.printStackTrace();
-            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions));
+            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions)+e.toString());
         }
     }
 
     @Override
     public void setFailedResponse(String value) {
         finish(type_detail);
-        ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions_again));
+        ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions_again)+value);
     }
 
     @Override
@@ -399,7 +399,7 @@ public class AppDetailActivity extends AppCompatActivity implements HttpGetUtils
             startTimer(type_detail,appNo,null);
         }else{
             finish(type_detail);
-            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_fail_again));
+            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_fail_again)+value);
         }
     }
 

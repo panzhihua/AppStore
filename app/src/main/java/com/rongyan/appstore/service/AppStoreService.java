@@ -2,9 +2,11 @@ package com.rongyan.appstore.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -41,6 +43,12 @@ public class AppStoreService extends Service implements HttpGetUtils.CallBack{
     private boolean isSuccess=false;
 
     private int num=0;//请求次数
+
+    private ComponentName defaultComponent;
+
+    private ComponentName testComponent;
+
+    private PackageManager packageManager;
 
     BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -79,6 +87,13 @@ public class AppStoreService extends Service implements HttpGetUtils.CallBack{
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);// 监听网络变化
         registerReceiver(mBroadcastReceiver, filter);
+//        defaultComponent = new ComponentName(getBaseContext(), "com.rongyan.appstore.activity.MainActivity");  //拿到默认的组件
+//        //拿到我注册的别名test组件
+//        testComponent = new ComponentName(getBaseContext(), "com.rongyan.appstore.activity.test");
+//
+//        packageManager = getApplicationContext().getPackageManager();
+//        disableComponent(defaultComponent);
+//        enableComponent(testComponent);
     }
 
     public void startTimer(int delay) {
@@ -136,4 +151,37 @@ public class AppStoreService extends Service implements HttpGetUtils.CallBack{
     public void onDestroy() {
         unregisterReceiver(mBroadcastReceiver);
     }
+
+    /**
+     * 启用组件
+     *
+     * @param componentName
+     */
+    private void enableComponent(ComponentName componentName) {
+        int state = packageManager.getComponentEnabledSetting(componentName);
+        if (state == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+            //已经启用
+            return;
+        }
+        packageManager.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+    }
+
+    /**
+     * 禁用组件
+     *
+     * @param componentName
+     */
+    private void disableComponent(ComponentName componentName) {
+        int state = packageManager.getComponentEnabledSetting(componentName);
+        if (state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
+            //已经禁用
+            return;
+        }
+        packageManager.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+    }
+
 }

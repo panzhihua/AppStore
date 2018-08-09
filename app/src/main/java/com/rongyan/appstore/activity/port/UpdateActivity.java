@@ -241,7 +241,7 @@ public class UpdateActivity extends AppCompatActivity implements HttpPostUtils.C
         }catch(Exception e){
             num=0;
             e.printStackTrace();
-            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions));
+            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions)+e.toString());
         }
     }
 
@@ -249,7 +249,7 @@ public class UpdateActivity extends AppCompatActivity implements HttpPostUtils.C
     public void setPostFailedResponse(String value) {
         num=0;
         mCustomDialog.hideDailog();
-        ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions_again));
+        ToastUtils.showToast(getApplicationContext(), getString(R.string.network_exceptions_again)+value);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class UpdateActivity extends AppCompatActivity implements HttpPostUtils.C
         }else{
             num=0;
             mCustomDialog.hideDailog();
-            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_fail_again));
+            ToastUtils.showToast(getApplicationContext(), getString(R.string.network_fail_again)+value);
         }
     }
 

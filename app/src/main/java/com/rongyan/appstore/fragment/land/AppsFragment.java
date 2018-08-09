@@ -354,6 +354,7 @@ public class AppsFragment extends Fragment implements HttpGetUtils.CallBack,AppV
                                 }
                             }
                         }
+                        LogUtils.w(TAG,"======");
                         mAppsAdapter.setList(mLeftOrRightAppsItem);
                         setView(true,0);
                     }else{

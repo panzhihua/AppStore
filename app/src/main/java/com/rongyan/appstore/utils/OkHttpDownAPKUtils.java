@@ -77,11 +77,11 @@ public class OkHttpDownAPKUtils {
         Request request = new Request.Builder().addHeader("Range", "bytes="+readSize+"-"+(app.getPackage_size()-1)).url(app.getPackage_url()).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Request request, final IOException e) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        ToastUtils.showToast(mContext, mContext.getString(R.string.download_failed_again));
+                        ToastUtils.showToast(mContext, mContext.getString(R.string.download_failed_again)+e.toString());
                     }
                 });
                 mOnDownloadListener.putProgress(-1,mState,app.getNo());
@@ -113,11 +113,11 @@ public class OkHttpDownAPKUtils {
                     }
                     // 下载完成
                     mOnDownloadListener.putProgress(100,mState,app.getNo());
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            ToastUtils.showToast(mContext, app.getName()+mContext.getString(R.string.download_failed_again));
+                            ToastUtils.showToast(mContext, app.getName()+mContext.getString(R.string.download_failed_again)+e.toString());
                         }
                     });
                     mOnDownloadListener.putProgress(-1,mState,app.getNo());

@@ -110,6 +110,7 @@ public class SearchActivity extends AppCompatActivity implements HttpGetUtils.Ca
                         inputMethodManager.hideSoftInputFromWindow(com.rongyan.appstore.activity.port.SearchActivity.this.getCurrentFocus().getWindowToken(), 0);
                     }
                     finish();
+                    overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -210,7 +211,7 @@ public class SearchActivity extends AppCompatActivity implements HttpGetUtils.Ca
             }
         } catch (Exception e) {
             setView(false);
-            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_exceptions));
+            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_exceptions)+e.toString());
             e.printStackTrace();
         }
     }
@@ -228,7 +229,7 @@ public class SearchActivity extends AppCompatActivity implements HttpGetUtils.Ca
         }else{
             finishEnd();
             setView(false);
-            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_fail_again));
+            ToastUtils.showToast(SearchActivity.this, getString(R.string.network_fail_again)+value);
         }
     }
 
