@@ -130,8 +130,8 @@ public class AppStoreApplication extends Application {
             }
             ApplicationUtils.setmMODEL(strArray[2]);
             ApplicationUtils.setmVERSION(strArray[3]);
-//            ApplicationUtils.setmBROKER("EWH");
-//            ApplicationUtils.setmMODEL("P10C");
+//            ApplicationUtils.setmBROKER("YZ");
+//            ApplicationUtils.setmMODEL("P10CC");
 //            ApplicationUtils.setmVERSION("2.0.7");
             IntentFilter filter = new IntentFilter();
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);// 监听网络变化

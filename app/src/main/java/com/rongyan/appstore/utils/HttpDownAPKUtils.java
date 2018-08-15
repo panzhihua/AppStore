@@ -95,11 +95,10 @@ public class HttpDownAPKUtils extends Thread{
                 raf.seek(readSize);
                 byte[] buf = new byte[8192];
                 connOne.connect();
-                double count = 0;
                 if (connOne.getResponseCode() == 206) {
                     num=0;
                     startTime=StringUtils.getSystemDate();
-                    while (count <= 100) {
+                    while (true) {
                         if (is != null) {
                             int numRead = is.read(buf);
                             if (numRead <= 0) {

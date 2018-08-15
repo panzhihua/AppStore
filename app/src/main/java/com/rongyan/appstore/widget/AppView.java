@@ -431,7 +431,11 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
                                     setState(UNINSTALL, 0);
                                 }else{
                                     Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(mApp.getPackage_name());
-                                    mContext.startActivity(intent);
+                                    if(intent==null){
+                                        ToastUtils.showToast(getContext(), mContext.getString(R.string.application_cannot_opened));
+                                    }else {
+                                        mContext.startActivity(intent);
+                                    }
                                 }
                             }else if(lastState==DOWN){//下载
                                 if(StringUtils.getSystemTime()-down_time>1) {

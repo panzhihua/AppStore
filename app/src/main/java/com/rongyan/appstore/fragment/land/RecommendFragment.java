@@ -87,6 +87,8 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
 
     private RecommendAdapter mRecommendAdapter;
 
+    private ImageView fragment_Recommend_Img;
+
     private Timer mBannersTimer, mHotestTimer, mNewestTimer;
 
     private HttpGetUtils mBannersUtils, mHotestUtils, mNewestUtils;
@@ -149,6 +151,7 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
         fragment_Recommend_Listview = (ListView) getView().findViewById(R.id.fragment_recommend_listview);
         fragment_Recommend_Search_Liy = (LinearLayout) getView().findViewById(R.id.fragment_recommend_search_liy);
         fragment_Recommend_Search_Edit = (EditText) getView().findViewById(R.id.fragment_recommend_search_edit);
+        fragment_Recommend_Img = (ImageView) getView().findViewById(R.id.fragment_recommend_img);
         toggleBtn(type_hotest);
     }
 
@@ -447,7 +450,10 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
                     if (item.getData() != null) {
                         infos = java.util.Arrays.asList(item.getData().getBanners());
                         if (infos != null && !infos.isEmpty()) {
+                            fragment_Recommend_Img.setVisibility(View.GONE);
                             setViewPager();
+                        }else{
+                            fragment_Recommend_Img.setVisibility(View.VISIBLE);
                         }
                         if (mDataBaseOpenHelper.QueryBeingClass(DatabaseColume.BANNERID, DatabaseColume.PAGE)) {//判断数据库中是否已存在
                             mDataBaseOpenHelper.UpdateClass(DatabaseColume.BANNERID, value, DatabaseColume.PAGE);//更新

@@ -24,7 +24,7 @@ public class Constants {
     private final static String HTTP_IP = "https://device.huo365.cn//api/";
 
     private final static String HTTP_IP1 = "http://huo365.cn/api/";
-    //private final static String HTTP_IP1 = "https://wenhui.huo365.cn//api/";
+    //private final static String HTTP_IP1 = "http://staging.huo365.cn/api/";
 
     public final static String HTTP_SETTINGS_URL = HTTP_IP + "v1/appstore/settings";// 返回应用市场的配置信息
 
@@ -52,7 +52,7 @@ public class Constants {
 
     public final static String HTTP_CALLBACK_URL = HTTP_IP + "v1/appstore/install_app_notifications/callback";//云箭推送回调接口
 
-    public final static String HTTP_APPSTORE_LATEST_STRING = HTTP_IP1 + "v1/apks/latest?apk_type=rongyan_appstore";// 获取应用市场最新的 Apk
+    public final static String HTTP_APPSTORE_LATEST_STRING = HTTP_IP1 + "v1/cash_register/boot_config";// 获取应用市场最新的 Apk
 
     public final static String HTTP_INCALLBACK_URL = HTTP_IP + "v1/notification/app_install/callback";//云箭推送安装回调接口
 

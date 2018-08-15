@@ -41,7 +41,9 @@ public class HttpDownLoadAPKUtils extends Thread{
         if (!tmpFile.exists()) {
             tmpFile.mkdirs();
         }
-        final File file = new File(downloadPath + "appstore.apk");
+        String[] strArray =address.split("/");
+        String apkNameString=strArray[strArray.length-1];
+        final File file = new File(downloadPath + apkNameString);
         try {
             if(file.exists()){//判断apk是否已经存在
                 readSize=file.length();
@@ -58,7 +60,7 @@ public class HttpDownLoadAPKUtils extends Thread{
                 contentLength=connTwo.getContentLength();
                 if(contentLength<=readSize){
                     Intent intent = new Intent("action.install.apk");
-                    intent.putExtra("path", downloadPath+ "appstore.apk");
+                    intent.putExtra("path", downloadPath+ apkNameString);
                     context.sendBroadcast(intent);
                 }else {
                     conn = (HttpURLConnection) url
@@ -71,9 +73,8 @@ public class HttpDownLoadAPKUtils extends Thread{
                     raf.seek(readSize);
                     byte[] buf = new byte[8192];
                     conn.connect();
-                    double count = 0;
                     if (conn.getResponseCode() == 206) {
-                        while (count <= 100) {
+                        while (true) {
                             if (is != null) {
                                 int numRead = is.read(buf);
                                 if (numRead <= 0) {
@@ -87,7 +88,7 @@ public class HttpDownLoadAPKUtils extends Thread{
                         }
                         LogUtils.w(TAG, "download successful");
                         Intent intent = new Intent("action.install.apk");
-                        intent.putExtra("path", downloadPath + "appstore.apk");
+                        intent.putExtra("path", downloadPath + apkNameString);
                         context.sendBroadcast(intent);
                     }
                 }

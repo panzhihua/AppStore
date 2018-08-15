@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.igexin.sdk.PushManager;
+import com.rongyan.appstore.service.AppStoreService;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -42,7 +42,9 @@ public class OkHttpDownLoadAPKUtils {
         if (!tmpFile.exists()) {
             tmpFile.mkdirs();
         }
-        final File file = new File(downloadPath + "appstore.apk");
+        String[] strArray =address.split("/");
+        final String apkNameString=strArray[strArray.length-1];
+        final File file = new File(downloadPath +apkNameString);
         if(file.exists()){//判断apk是否已经存在
             file.delete();
         }
@@ -69,7 +71,7 @@ public class OkHttpDownLoadAPKUtils {
                     // 下载完成
                     LogUtils.w(TAG, "download apk successful");
                     Intent intent = new Intent("action.install.apk");
-                    intent.putExtra("path", downloadPath+ "appstore.apk");
+                    intent.putExtra("path", downloadPath+ apkNameString);
                     context.sendBroadcast(intent);
                 } catch (Exception e) {
                     file.delete();//下载失败，删除已下载部分

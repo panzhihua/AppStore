@@ -56,6 +56,7 @@
     <string name="download_failed_restart">升级包下载失败，请重启应用</string>
     <string name="no_application_under_classification">该分类下没有应用</string>
     <string name="shopkeeper_busy_system_tired">掌柜很忙，系统很累~</string>
+    <string name="application_cannot_opened">应用没有启动入口，无法打开</string>
 
     <string name="add_tag">添加标签</string>
     <string name="add_tag_unknown_exception">设置标签失败，未知异常</string>
