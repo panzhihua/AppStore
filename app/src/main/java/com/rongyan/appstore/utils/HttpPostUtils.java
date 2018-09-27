@@ -79,9 +79,8 @@ public class HttpPostUtils extends Thread {
 			urlConnection.setUseCaches(false);
 			urlConnection.setDoInput(true);
 			urlConnection.setDoOutput(true);
-			if(Build.SERIAL!=null&&!Build.SERIAL.equals("")){
-				urlConnection.addRequestProperty("device-sn", Build.SERIAL);
-//				urlConnection.addRequestProperty("device-sn", "CNDFPBP9C161203001719");
+			if(ApplicationUtils.getSN()!=null&&!ApplicationUtils.getSN().equals("")){
+				urlConnection.addRequestProperty("device-sn", ApplicationUtils.getSN());
 			}else{
 				mHandler.post(new Runnable() {
 					@Override
@@ -106,10 +105,8 @@ public class HttpPostUtils extends Thread {
 				return;
 			}
 			if(ApplicationUtils.getUUID()!=null&&!ApplicationUtils.getUUID().equals("")) {
-				urlConnection.addRequestProperty("deivce-uuid",
+				urlConnection.addRequestProperty("device-uuid",
 						ApplicationUtils.getUUID());
-//				urlConnection.setRequestProperty("deivce-uuid",
-//						"052a9123e3a038d675d79e1a922b4be2c205d64725bbe1e736a0b95c42fe9923b41351244ab74fc14708d9194e8f2859");
 			}else{
 				mHandler.post(new Runnable() {
 					@Override

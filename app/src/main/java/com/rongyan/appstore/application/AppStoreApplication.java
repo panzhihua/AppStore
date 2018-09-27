@@ -13,6 +13,8 @@ import android.provider.Settings;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
 import com.rongyan.appstore.BuildConfig;
 import com.rongyan.appstore.activity.NetworksActivity;
 import com.rongyan.appstore.database.DataBaseOpenHelper;
@@ -50,14 +52,7 @@ public class AppStoreApplication extends Application {
             try {
                 String action = intent.getAction();
                 if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                    if (mConManager == null) {
-                        mConManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                    }
-                    NetworkInfo wifiInfo = mConManager
-                            .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                    NetworkInfo ethInfo = mConManager
-                            .getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
-                    if ((wifiInfo != null && wifiInfo.isConnected()) || (ethInfo != null && ethInfo.isConnected())) {
+                    if (ApplicationUtils.isNetworkAvailable(getApplicationContext())) {
                         if(isfrontDesk) {
                             Intent closeIntent = new Intent("close.activity");
                             sendBroadcast(closeIntent);//发送广播关闭断网提示activity
@@ -103,6 +98,7 @@ public class AppStoreApplication extends Application {
                 initCache();
                 initBugly();
                 initSystem();
+                //initFileDownloader();
                 initRegister();
             }
         }
@@ -128,9 +124,14 @@ public class AppStoreApplication extends Application {
             }else {
                 ApplicationUtils.setmBROKER(strArray[1]);
             }
+            if("HD01".equals(strArray[2])){
+                ApplicationUtils.setmSN(ApplicationUtils.getSN());
+            }else{
+                ApplicationUtils.setmSN(Build.SERIAL);
+            }
             ApplicationUtils.setmMODEL(strArray[2]);
             ApplicationUtils.setmVERSION(strArray[3]);
-//            ApplicationUtils.setmBROKER("YZ");
+//            ApplicationUtils.setmBROKER("EWH");
 //            ApplicationUtils.setmMODEL("P10CC");
 //            ApplicationUtils.setmVERSION("2.0.7");
             IntentFilter filter = new IntentFilter();
@@ -176,6 +177,16 @@ public class AppStoreApplication extends Application {
         }
     }
 
+    public void initFileDownloader(){
+        FileDownloader.setupOnApplicationOnCreate(this)
+                .connectionCreator(new FileDownloadUrlConnection
+                        .Creator(new FileDownloadUrlConnection.Configuration()
+                        .connectTimeout(15_000) // set connection timeout.
+                        .readTimeout(15_000) // set read timeout.
+                ))
+                .commit();
+    }
+
     public void initCache(){
         ApplicationUtils.setApps_count(CacheUtils.getInt(getApplicationContext(), Constants.APPS_COUNT));
         ApplicationUtils.setBanners_count(CacheUtils.getInt(getApplicationContext(), Constants.BANNERS_COUNT));
@@ -189,7 +200,7 @@ public class AppStoreApplication extends Application {
         //bugly
         if(!BuildConfig.DEBUG) {
             CrashReport.initCrashReport(getApplicationContext());
-            CrashReport.setUserId(Build.SERIAL);
+            CrashReport.setUserId(ApplicationUtils.getSN());
         }
     }
 
@@ -221,7 +232,6 @@ public class AppStoreApplication extends Application {
                 isfrontDesk=false;
             }
         });
-
     }
 
     private String getProcessName(Context context) {

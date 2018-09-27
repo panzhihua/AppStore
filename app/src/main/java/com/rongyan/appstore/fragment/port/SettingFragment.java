@@ -67,6 +67,7 @@ public class SettingFragment extends Fragment implements HttpPostUtils.CallBack{
 
     @Override
     public void onResume(){
+        LogUtils.w(TAG,"onResume");
         judgeCheck_Update();
         super.onResume();
     }

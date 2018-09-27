@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.rongyan.appstore.item.Apps;
 import com.rongyan.appstore.utils.ApplicationUtils;
+import com.rongyan.appstore.utils.LogUtils;
 import com.rongyan.appstore.widget.AppView;
 
 import com.rongyan.appstore.R;;
@@ -16,6 +17,8 @@ import com.rongyan.appstore.R;;
  */
 
 public class AppAdapter extends RootAdapter<Apps>{
+
+    private final static String TAG="AppAdapter";
 
     private Object mObject;
 

@@ -18,6 +18,7 @@ import com.rongyan.appstore.utils.ApplicationUtils;
 import com.rongyan.appstore.utils.HttpGetUtils;
 import com.rongyan.appstore.utils.Constants;
 import com.rongyan.appstore.utils.JsonUtils;
+import com.rongyan.appstore.utils.LogUtils;
 import com.rongyan.appstore.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ import com.rongyan.appstore.R;
  */
 
 public class ClassificationFragment extends Fragment implements HttpGetUtils.CallBack{
+
+    private final static String TAG="ClassificationFragment";
 
     private ListView fragment_Classification_Listview;
 
@@ -62,6 +65,7 @@ public class ClassificationFragment extends Fragment implements HttpGetUtils.Cal
 
     @Override
     public void onResume(){
+        LogUtils.w(TAG,"onResume");
         super.onResume();
     }
 

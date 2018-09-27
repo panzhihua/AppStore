@@ -21,6 +21,7 @@ import static android.content.Context.WIFI_SERVICE;
 
 public class StringUtils {
 
+    private final static String TAG="StringUtils";
     /**
      * 转换app文件大小
      */
@@ -52,10 +53,12 @@ public class StringUtils {
 
     public static boolean compareVersion(Context context,String code) {
         try{
+            LogUtils.w(TAG,"code:"+code);
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             int replace1 = Integer.parseInt(code.replace(".", "0"));
             int replace2 = Integer.parseInt(info.versionName.replace(".", "0"));
+            LogUtils.w(TAG,replace1+":"+replace2);
             if(replace1-replace2>0){
                 return true;
             }

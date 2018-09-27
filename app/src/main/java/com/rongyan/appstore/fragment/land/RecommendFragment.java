@@ -438,8 +438,9 @@ public class RecommendFragment extends Fragment implements HttpGetUtils.CallBack
                                     }
                                 }
                             }
-                            setListViewHeightBasedOnChildren(fragment_Recommend_Listview,item.getData().getApps().length);//解决ScrollView嵌套ListView只显示一行的bug
                             mRecommendAdapter.setList(mLeftOrRightAppsItem);
+                            setListViewHeightBasedOnChildren(fragment_Recommend_Listview,item.getData().getApps().length);//解决ScrollView嵌套ListView只显示一行的bug
+
                         }
                     }
                 }

@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import com.rongyan.appstore.activity.land.SettingActivity;
 import com.rongyan.appstore.activity.port.AppDetailActivity;
 import com.rongyan.appstore.activity.port.AppListActivity;
-import com.rongyan.appstore.activity.port.HomePageActivity;
 import com.rongyan.appstore.activity.port.UpdateActivity;
 import com.rongyan.appstore.application.AppStoreApplication;
 import com.rongyan.appstore.fragment.land.AppsFragment;
@@ -21,12 +20,10 @@ import com.rongyan.appstore.fragment.port.HomePageFragment;
 import com.rongyan.appstore.fragment.port.SettingFragment;
 import com.rongyan.appstore.item.AppInfoItem;
 import com.rongyan.appstore.item.Apps;
-import com.rongyan.appstore.item.CategoriesItem;
 import com.rongyan.appstore.widget.AppView;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +37,8 @@ public class ApplicationUtils {
     private final static String TAG="ApplicationUtils";
 
     private static boolean mNetWorkEnable;
+
+    public static String mSN = "";// 机器唯一编码
 
     private static String mUUID = "";// 机器唯一编码
 
@@ -93,6 +92,16 @@ public class ApplicationUtils {
     }
 
     /**
+     * 获取SN
+     */
+    public static String getSN() {
+        if (mSN == null || mSN.equals("0")|| mSN.equals("")) {
+            mSN=getProperty("gsm.serial", "0");
+        }
+        return mSN;
+    }
+
+    /**
      * 获取 属性值
      *
      * @param key
@@ -115,6 +124,14 @@ public class ApplicationUtils {
         } finally {
             return value;
         }
+    }
+
+    public static String getmSN() {
+        return mSN;
+    }
+
+    public static void setmSN(String mSN) {
+        ApplicationUtils.mSN = mSN;
     }
 
     public static void setmBROKER(String mBROKER) {
@@ -333,6 +350,7 @@ public class ApplicationUtils {
         if(!install){//再判断app是否已下载
             File file = new File(HttpDownAPKUtils.downloadPath + appview.getAppName());
             if(file.exists()){//判断apk是否已经存在
+                LogUtils.w(TAG, appview.getAppName()+":"+file.length());
                 if(file.length()<app.getPackage_size()) {//判断apk是否下载完成
                     appview.setInstall_update(AppView.DOWN);
                     appview.sendBroadcast(AppView.DOWN,  (int)(10000*file.length()/app.getPackage_size()));//下载

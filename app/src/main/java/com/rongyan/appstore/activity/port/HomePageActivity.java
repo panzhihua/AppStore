@@ -325,6 +325,7 @@ public class HomePageActivity extends PermissionsActivity implements HttpGetUtil
      * 切换fragment操作
      */
     private void switchModule(int index) {
+        LogUtils.w(TAG,"index="+index);
         switch (index) {
             case HOMEPAGE:
                 if(homePageFragment==null){

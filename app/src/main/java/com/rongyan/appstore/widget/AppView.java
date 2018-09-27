@@ -26,7 +26,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.rongyan.appstore.R;
 import com.rongyan.appstore.database.DataBaseOpenHelper;
-import com.rongyan.appstore.dialog.CustomDialog;
 import com.rongyan.appstore.item.AppInfo;
 import com.rongyan.appstore.item.AppInfoItem;
 import com.rongyan.appstore.item.Apps;
@@ -99,6 +98,8 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
 
     private HttpDownAPKUtils mHttpDownAPKUtils=null;
 
+    //private DownloadManager mDownloadManager=null;
+
     private Apps mApp;
 
     private Context mContext;
@@ -165,7 +166,7 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
                     view_App_Time_Txt.setText(intent.getExtras().getInt("installs") + mContext.getString(R.string.installs));
                 }
             }else if(action.equals("package.install.returncode")){//获取静默安装结果
-               LogUtils.w(TAG,"returncode:"+intent.getExtras().getString("name")+"==="+mApp.getPackage_name());
+               //LogUtils.w(TAG,"returncode:"+intent.getExtras().getString("name")+"==="+mApp.getPackage_name());
                 if(mApp!=null&&intent.getExtras().getString("name")!=null&&intent.getExtras().getString("name").equals(mApp.getPackage_name())) {
                     LogUtils.w(TAG,"code="+intent.getExtras().getInt("code"));
                     updateDataBase(0);
@@ -415,7 +416,6 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
                         break;
                     case MotionEvent.ACTION_UP:
                         mCurPosX = event.getX();
-                        LogUtils.w(TAG,"mCurPosX - mPosX="+(mCurPosX - mPosX));
                         if (mCurPosX - mPosX > 20) {
 //                            if(lastState==UNINSTALL) {
 //                                setState(OPEN, 0);
@@ -426,8 +426,7 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
 //                            }
                         }else{
                             if(lastState==OPEN){//打开
-                                LogUtils.w(TAG,"StringUtils.getSystemTime()-down_time="+(StringUtils.getSystemTime()-down_time));
-                                if(StringUtils.getSystemTime()-down_time>0) {
+                                if(StringUtils.getSystemTime()-down_time>1) {
                                     setState(UNINSTALL, 0);
                                 }else{
                                     Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(mApp.getPackage_name());
@@ -483,8 +482,10 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
         filter.addAction("action.update.ratings");
         filter.addAction("action.update.installs");
         filter.addAction("package.install.returncode");
-        mContext.registerReceiver(mBroadcastReceiver, filter);
-        isBroadCast=true;
+        if(!isBroadCast) {
+            mContext.registerReceiver(mBroadcastReceiver, filter);
+            isBroadCast = true;
+        }
     }
 
     public void setView(Object object,Apps apps){
@@ -571,6 +572,8 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
                     updateDataBase(2);
                     mHttpDownAPKUtils = new HttpDownAPKUtils(mContext, AppView.this, mApp, appName, DOWNING);
                     mHttpDownAPKUtils.start();
+//                    mDownloadManager= new DownloadManager(mContext, AppView.this, mApp, appName, DOWNING);
+//                    mDownloadManager.download();
                 }
             } else {
                 ToastUtils.showToast(getContext(), mContext.getString(R.string.remaining_storage_space_insufficient_downloaded));
@@ -614,7 +617,7 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
     }
 
     public void setState(int state,int num) {
-        LogUtils.w(TAG,"appname=" + mApp.getName() + "==state=" + state+"==num="+num);
+        //LogUtils.w(TAG,"appname=" + mApp.getName() + "==state=" + state+"==num="+num);
         try {
             lastState = state;
             lastNum=num;
@@ -657,6 +660,7 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
             if(state==DOWN&&getInstall_update()==UPDATE) {
                 state = UPDATE;
             }
+            LogUtils.w(TAG,"sendBroadcast="+appName+":state="+state+",num:"+num);
             Intent intent = new Intent();
             intent.setAction("action.update.appview");
             intent.putExtra("state", state);
@@ -707,7 +711,7 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
 //            isIntegrity = false;
 //        }
         File file = new File(HttpDownAPKUtils.downloadPath + appName);
-        if(mApp.getPackage_md5()==null||(mApp.getPackage_md5()!=null&&!mApp.getPackage_md5().contains(ApkUtils.getFileMD5(file)))){
+        if(mApp.getPackage_md5()==null||ApkUtils.getFileMD5(file)==null||!mApp.getPackage_md5().contains(ApkUtils.getFileMD5(file))){
             isIntegrity = false;
         }
         LogUtils.w(TAG,ApkUtils.getFileMD5(file)+"=="+mApp.getPackage_md5());
@@ -820,7 +824,7 @@ public class AppView extends FrameLayout implements HttpPostUtils.CallBack,OkHtt
     public void putProgress(int progress,int state,String appNo) {
         try {
             if(appNo.equals(mApp.getNo())) {
-                LogUtils.w(TAG, progress + "");
+                LogUtils.w(TAG, "progress:"+progress);
                 if (progress ==-2) {//说明apk已经存在
                     if (state == DOWNING) {
                         sendBroadcastInstall(INSTALLING, 0,appNo);//安装中

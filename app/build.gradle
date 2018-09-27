@@ -10,13 +10,13 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
     defaultConfig {//默认配置
         applicationId "com.rongyan.appstore"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         flavorDimensions "versionCode"//版本名后面添加一句话，意思就是flavor dimension 它的维度就是该版本号，这样维度就是都是统一的了
@@ -100,4 +100,5 @@ dependencies {
     implementation files('libs/dd-plist-1.16.jar')
     //个推
     implementation files('libs/GetuiSDK2.12.3.0.jar')
+    implementation 'com.liulishuo.filedownloader:library:1.7.5'
 }

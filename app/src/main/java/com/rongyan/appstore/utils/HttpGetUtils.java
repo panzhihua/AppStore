@@ -62,9 +62,9 @@ public class HttpGetUtils extends Thread {
 			connection.setReadTimeout(5000);
 			connection.setConnectTimeout(5000);
 			connection.setUseCaches(true);
-			if(Build.SERIAL!=null&&!Build.SERIAL.equals("")){
-				connection.addRequestProperty("device-sn", Build.SERIAL);
-//				connection.addRequestProperty("device-sn", "CNDFPBP9C161203001719");
+			LogUtils.w(TAG, "sn:"+ApplicationUtils.getSN()+",broker:"+ApplicationUtils.getmBROKER()+",uuid:"+ApplicationUtils.getUUID()+",model:"+ApplicationUtils.getmMODEL()+",version:"+ApplicationUtils.getmVERSION());
+			if(ApplicationUtils.getSN()!=null&&!ApplicationUtils.getSN().equals("")){
+				connection.addRequestProperty("device-sn", ApplicationUtils.getSN());
 			}else{
 				mHandler.post(new Runnable() {
 					@Override
@@ -89,10 +89,8 @@ public class HttpGetUtils extends Thread {
 				return;
 			}
 			if(ApplicationUtils.getUUID()!=null&&!ApplicationUtils.getUUID().equals("")) {
-				connection.addRequestProperty("deivce-uuid",
+				connection.addRequestProperty("device-uuid",
 						ApplicationUtils.getUUID());
-//				connection.setRequestProperty("deivce-uuid",
-//						"052a9123e3a038d675d79e1a922b4be2c205d64725bbe1e736a0b95c42fe9923b41351244ab74fc14708d9194e8f2859");
 			}else{
 				mHandler.post(new Runnable() {
 					@Override
