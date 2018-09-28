@@ -20,11 +20,11 @@ public class Constants {
 
     public final static String DEVICE_TOKEN="device_token";
 
-    private final static String HTTP_IP = "http://staging-rongyan-device.huo365.cn/api/";
-    //private final static String HTTP_IP = "https://device.huo365.cn//api/";
+    //private final static String HTTP_IP = "http://staging-rongyan-device.huo365.cn/api/";
+    private final static String HTTP_IP = "https://device.huo365.cn//api/";
 
-    //private final static String HTTP_IP1 = "http://huo365.cn/api/";
-    private final static String HTTP_IP1 = "http://staging.huo365.cn/api/";
+    private final static String HTTP_IP1 = "http://huo365.cn/api/";
+    //private final static String HTTP_IP1 = "http://staging.huo365.cn/api/";
 
     public final static String HTTP_SETTINGS_URL = HTTP_IP + "v1/appstore/settings";// 返回应用市场的配置信息
 

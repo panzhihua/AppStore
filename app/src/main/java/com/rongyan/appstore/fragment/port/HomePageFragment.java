@@ -10,7 +10,6 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -346,14 +345,14 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
     private void initViewPager(Bundle savedInstanceState) {
         listViews = new ArrayList();
         @SuppressLint("RestrictedApi")
-        LayoutInflater mInflater = getLayoutInflater(savedInstanceState);
+        LayoutInflater mInflater = LayoutInflater.from(getContext());
         View hotestView = mInflater.inflate(R.layout.homepage_hotest, null);
         View newestView = mInflater.inflate(R.layout.homepage_newest, null);
         listViews.add(hotestView);
         listViews.add(newestView);
         fragment_Homepage_Viewpagers.setAdapter(new MyPagerAdapter(listViews));
         fragment_Homepage_Viewpagers.setCurrentItem(0, false);
-        fragment_Homepage_Viewpagers.setOnPageChangeListener(new MyOnPageChangeListener());
+        fragment_Homepage_Viewpagers.addOnPageChangeListener(new MyOnPageChangeListener());
         initPageView(hotestView,newestView);
     }
 
@@ -431,8 +430,10 @@ public class HomePageFragment extends Fragment implements HttpGetUtils.CallBack,
                 fragment_Homepage_Viewpagers.setCurrentItem(currIndex);
             }
             toggleBtn(currIndex+1);
-            animation.setFillAfter(true);// True:图片停在动画结束位置
-            animation.setDuration(300);
+            if(animation!=null) {
+                animation.setFillAfter(true);// True:图片停在动画结束位置
+                animation.setDuration(300);
+            }
             if(currIndex==HOTEST){
                 judgeNew_Hot(type_newest);
             }else{

@@ -22,5 +22,7 @@
     <color name="white_2">#33ffffff</color>
     <color name="white_1">#1affffff</color>
     <color name="black_3">#4c000000</color>
+    <color name="orange_10">#ffB92501</color>
+    <color name="backage_color">#ffB92501</color>
 </resources>
 

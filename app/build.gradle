@@ -9,12 +9,12 @@ android {
             storePassword 'rongyan'
         }
     }
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '28.0.2'
     defaultConfig {//默认配置
         applicationId "com.rongyan.appstore"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 5
         versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -52,34 +52,20 @@ android {
             jniLibs.srcDirs = ['libs']//这个必须加，因为我们把.so文件放在了libs文件夹中
         }
     }
-    productFlavors {
-        koubei {
-            resValue "color", "orange_10", '#ffff5800'
-            resValue "color", "backage_color", '#333333'
-            resValue "drawable", "homepagebg", '@drawable/homepage'
-            resValue "drawable", "app_icon", '@drawable/launcher_kb'
-        }
-        ewh {
-            resValue "color", "orange_10", '#ffB92501'
-            resValue "color", "backage_color", '#ffB92501'
-            resValue "drawable", "homepagebg", '@drawable/homepager'
-            resValue "drawable", "app_icon", '@drawable/launcher'
-        }
-    }
 }
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //noinspection GradleCompatible
-    implementation 'com.android.support:design:25.4.0'
+    implementation 'com.android.support:design:27.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:25.3.1'
-    implementation 'com.android.support:gridlayout-v7:25.4.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.4'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.8.4'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.4'
